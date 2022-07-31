@@ -11,9 +11,12 @@ import {
 } from "react-native"
 import { styles } from "./styles"
 import LoginPNG from "../../assets/login.png"
+import api from "../../api"
 
 const SignupScreen = ({ navigation }) => {
   const [isFocused, setIsFocused] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -21,11 +24,34 @@ const SignupScreen = ({ navigation }) => {
   const handleFocus = () => setIsFocused(true)
   const handleBlur = () => setIsFocused(false)
 
+  const signupHandler = async () => {
+    setLoading(true)
+    console.log(username, email, password)
+    try {
+      const { data } = await api.post(
+        "/users",
+        JSON.stringify({
+          username: username,
+          email: email,
+          password: password,
+        })
+      )
+      console.log(data)
+      await navigation.navigate("Login")
+    } catch (error) {
+      console.log(error)
+      setError(error.response.data.error)
+      alert(error.response.data.error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <Image
         source={LoginPNG}
-        style={{ marginBottom: 50, height: 200, width: 200 }}
+        style={{ marginBottom: 30, height: 200, width: 200 }}
       />
       <TextInput
         onPressIn={handleFocus}
@@ -52,7 +78,7 @@ const SignupScreen = ({ navigation }) => {
         placeholder='Enter password'
       />
       <TouchableHighlight
-        onPress={() => alert("This is a button!")}
+        onPress={signupHandler}
         underlayColor='#fff'
         style={styles.btn}
       >

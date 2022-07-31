@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { StatusBar } from "expo-status-bar"
 import {
   Text,
@@ -8,17 +8,45 @@ import {
   Button,
   TouchableHighlight,
   Image,
+  ActivityIndicator,
 } from "react-native"
+import { AsyncStorage } from "react-native"
 import { styles } from "./styles"
 import LoginPNG from "../../assets/login.png"
+import api from "../../api"
 
 const LoginScreen = ({ navigation }) => {
   const [isFocused, setIsFocused] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
   const handleFocus = () => setIsFocused(true)
   const handleBlur = () => setIsFocused(false)
+
+  const loginHandler = async () => {
+    setLoading(true)
+    console.log(email, password)
+    try {
+      const { data } = await api.post(
+        "/login",
+        JSON.stringify({
+          email: email,
+          password: password,
+        })
+      )
+      console.log(data)
+      await AsyncStorage.setItem("token", data.token)
+      await navigation.navigate("Blogs")
+    } catch (error) {
+      console.log(error.response.data.error)
+      setError(error.response.data.error)
+      alert(error.response.data.error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -43,7 +71,7 @@ const LoginScreen = ({ navigation }) => {
         placeholder='Enter password'
       />
       <TouchableHighlight
-        onPress={() => alert("This is a button!")}
+        onPress={loginHandler}
         underlayColor='#fff'
         style={styles.btn}
       >
