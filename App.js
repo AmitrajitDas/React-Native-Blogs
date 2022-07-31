@@ -1,20 +1,41 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { StatusBar } from "expo-status-bar"
-import { StyleSheet, Text, View, Button } from "react-native"
+import { StyleSheet, Text, View, Button, AsyncStorage } from "react-native"
 import { NavigationContainer } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 
 import LoginScreen from "./pages/LoginScreen"
 import SignupScreen from "./pages/SignupScreen"
+import BlogsScreen from "./pages/BlogsScreen"
+import BlogScreen from "./pages/BlogScreen"
 
 const Stack = createNativeStackNavigator()
 
 export default function App() {
-  const [auth, setAuth] = useState()
+  const [auth, setAuth] = useState(false)
+  // var token
+  // useEffect(() => {
+  //   const getToken = async () => {
+  //     token = await AsyncStorage.getItem("token")
+  //   }
+  //   getToken()
+  // }, [token])
+
+  // const removeToken = async (key) => {
+  //   try {
+  //     await AsyncStorage.removeItem(key)
+  //     navigator.navigate("Login")
+  //   } catch (err) {
+  //     console.log(err)
+  //   }
+  // }
+
   return (
     <>
       <NavigationContainer>
         <Stack.Navigator
+          // initialRouteName={token === null ? "Login" : "Blogs"}
+          initialRouteName='Login'
           screenOptions={{
             headerStyle: {
               backgroundColor: "#0096FF",
@@ -23,16 +44,15 @@ export default function App() {
             headerTitleStyle: {
               fontWeight: "bold",
             },
-            headerRight: () => (
-              <Button
-                onPress={() => alert("This is a button!")}
-                title='Info'
-                color='#000'
-                style={styles.navBtn}
-              />
-            ),
+            // headerRight: () => (
+            //   <Button
+            //     onPress={() => removeToken("token")}
+            //     title='Logout'
+            //     color='#000'
+            //     style={styles.navBtn}
+            //   />
+            // ),
           }}
-          initialRouteName='Login'
         >
           <Stack.Screen
             name='Login'
@@ -43,6 +63,16 @@ export default function App() {
             name='Signup'
             component={SignupScreen}
             options={{ title: "Signup" }}
+          />
+          <Stack.Screen
+            name='Blogs'
+            component={BlogsScreen}
+            options={{ title: "Blogs" }}
+          />
+          <Stack.Screen
+            name='Blog'
+            component={BlogScreen}
+            options={{ title: "Blog" }}
           />
         </Stack.Navigator>
       </NavigationContainer>
