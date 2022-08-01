@@ -29,7 +29,12 @@ const Card = ({ blog, navigation }) => {
   return (
     <TouchableHighlight
       underlayColor='#fff'
-      onPress={() => navigation.navigate("Blog")}
+      onPress={() =>
+        navigation.navigate("Blog", {
+          blogId: blog.id,
+          username: user && user,
+        })
+      }
     >
       <View style={styles.card}>
         <View style={styles.cardContent}>
