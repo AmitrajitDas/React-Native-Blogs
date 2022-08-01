@@ -72,7 +72,7 @@ export default function App() {
           <Stack.Screen
             name='Blog'
             component={BlogScreen}
-            options={{ title: "Blog" }}
+            options={{ title: "Read Blog" }}
           />
         </Stack.Navigator>
       </NavigationContainer>
