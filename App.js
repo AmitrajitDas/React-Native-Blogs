@@ -8,6 +8,7 @@ import LoginScreen from "./pages/LoginScreen"
 import SignupScreen from "./pages/SignupScreen"
 import BlogsScreen from "./pages/BlogsScreen"
 import BlogScreen from "./pages/BlogScreen"
+import CreateBlogScreen from "./pages/CreateBlogScreen"
 
 const Stack = createNativeStackNavigator()
 
@@ -73,6 +74,11 @@ export default function App() {
             name='Blog'
             component={BlogScreen}
             options={{ title: "Read Blog" }}
+          />
+          <Stack.Screen
+            name='CreateBlog'
+            component={CreateBlogScreen}
+            options={{ title: "Create Blog" }}
           />
         </Stack.Navigator>
       </NavigationContainer>

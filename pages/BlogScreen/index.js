@@ -27,7 +27,7 @@ const BlogScreen = ({ navigation, route }) => {
       try {
         const { data } = await api.get(`/blogs/${blogId}`)
         console.log(data)
-        setBlog(data)
+        await setBlog(data)
       } catch (error) {
         console.log(error.response.data.errors)
         setError(error.response.data.errors)

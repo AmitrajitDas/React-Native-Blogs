@@ -13,9 +13,9 @@ const Card = ({ blog, navigation }) => {
     const getUser = async () => {
       setLoading(true)
       try {
-        const { data } = await api.get(`/users/${blog.user_id}`)
+        const { data } = await api.get(`/users/${blog?.user_id}`)
         console.log(data)
-        setUser(data.username)
+        await setUser(data.username)
       } catch (error) {
         console.log(error.response.data.error)
         setError(error.response.data.error)
@@ -30,8 +30,8 @@ const Card = ({ blog, navigation }) => {
     <TouchableHighlight
       underlayColor='#fff'
       onPress={() =>
-        navigation.navigate("Blog", {
-          blogId: blog.id,
+        navigation.push("Blog", {
+          blogId: blog?.id,
           username: user && user,
         })
       }
