@@ -36,7 +36,7 @@ const MyBlogScreen = ({ navigation }) => {
       setLoading(false)
     }
     fetchBlogs()
-  }, [])
+  }, [navigation])
 
   return (
     <View>

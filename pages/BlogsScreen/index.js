@@ -27,10 +27,16 @@ const BlogsScreen = ({ navigation }) => {
       position: 1,
     },
     {
-      text: "My Blog",
+      text: "My Blogs",
       icon: require("../../assets/blog.png"),
       name: "bt_my_blog",
       position: 2,
+    },
+    {
+      text: "Edit User",
+      icon: require("../../assets/blog.png"),
+      name: "bt_edit_user",
+      position: 3,
     },
   ]
 
@@ -51,7 +57,7 @@ const BlogsScreen = ({ navigation }) => {
       setLoading(false)
     }
     fetchBlogs()
-  }, [])
+  }, [navigation])
 
   return (
     <View>
@@ -69,6 +75,9 @@ const BlogsScreen = ({ navigation }) => {
           }
           if (name === "bt_my_blog") {
             navigation.navigate("MyBlog")
+          }
+          if (name === "bt_edit_user") {
+            navigation.navigate("EditUser")
           }
         }}
         color='#0096FF'
