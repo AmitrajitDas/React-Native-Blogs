@@ -1,6 +1,12 @@
 import { Children, useState, useEffect } from "react"
 import { StatusBar } from "expo-status-bar"
-import { Text, View, Image, TouchableHighlight } from "react-native"
+import {
+  Text,
+  View,
+  Image,
+  TouchableHighlight,
+  AsyncStorage,
+} from "react-native"
 import { styles } from "./styles"
 import BlogIMG from "../../assets/blogimg.jpg"
 import api from "../../api"
@@ -13,9 +19,9 @@ const Card = ({ blog, navigation }) => {
     const getUser = async () => {
       setLoading(true)
       try {
-        const { data } = await api.get(`/users/${blog.user_id}`)
+        const { data } = await api.get(`/users/${blog?.user_id}`)
         console.log(data)
-        setUser(data.username)
+        await setUser(data.username)
       } catch (error) {
         console.log(error.response.data.error)
         setError(error.response.data.error)
@@ -30,8 +36,8 @@ const Card = ({ blog, navigation }) => {
     <TouchableHighlight
       underlayColor='#fff'
       onPress={() =>
-        navigation.navigate("Blog", {
-          blogId: blog.id,
+        navigation.push("Blog", {
+          blogId: blog?.id,
           username: user && user,
         })
       }

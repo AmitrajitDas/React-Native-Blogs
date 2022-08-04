@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react"
+import { useState, useEffect } from "react"
 import { StatusBar } from "expo-status-bar"
 import {
   Text,
@@ -8,33 +8,16 @@ import {
   Button,
   TouchableHighlight,
   Image,
+  AsyncStorage,
 } from "react-native"
+import api from "../../api"
 import Card from "../../components/Card"
 import { styles } from "./styles"
-import { FloatingAction } from "react-native-floating-action"
-import api from "../../api"
 
-const BlogsScreen = ({ navigation }) => {
+const MyBlogScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
   const [blogs, setBlogs] = useState([])
-
-  const actions = [
-    {
-      text: "Create Blog",
-      icon: require("../../assets/blog.png"),
-      name: "bt_create_blog",
-      position: 1,
-    },
-    {
-      text: "My Blog",
-      icon: require("../../assets/blog.png"),
-      name: "bt_my_blog",
-      position: 2,
-    },
-  ]
-
-  // const data = useMemo(() => blogs, [blogs]) // <- dependencies
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -42,7 +25,9 @@ const BlogsScreen = ({ navigation }) => {
       try {
         const { data } = await api.get("/blogs")
         console.log(data)
-        setBlogs(data)
+        const userIdString = await AsyncStorage.getItem("userId")
+        const userId = JSON.parse(userIdString)
+        await setBlogs(data.filter((x) => x.user_id === userId))
       } catch (error) {
         console.log(error.response.data.error)
         setError(error.response.data.error)
@@ -61,21 +46,9 @@ const BlogsScreen = ({ navigation }) => {
             <Card key={blog.id} blog={blog} navigation={navigation} />
           ))}
       </ScrollView>
-      <FloatingAction
-        actions={actions}
-        onPressItem={(name) => {
-          if (name === "bt_create_blog") {
-            navigation.navigate("CreateBlog")
-          }
-          if (name === "bt_my_blog") {
-            navigation.navigate("MyBlog")
-          }
-        }}
-        color='#0096FF'
-      />
-      <StatusBar style='auto' />
+      <Text>MyBlogScreen</Text>
     </View>
   )
 }
 
-export default BlogsScreen
+export default MyBlogScreen

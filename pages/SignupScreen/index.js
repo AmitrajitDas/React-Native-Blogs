@@ -37,7 +37,7 @@ const SignupScreen = ({ navigation }) => {
         })
       )
       console.log(data)
-      await navigation.navigate("Login")
+      await navigation.push("Login")
     } catch (error) {
       console.log(error)
       setError(error.response.data.error)
@@ -48,7 +48,7 @@ const SignupScreen = ({ navigation }) => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Image
         source={LoginPNG}
         style={{ marginBottom: 30, height: 200, width: 200 }}
@@ -91,7 +91,7 @@ const SignupScreen = ({ navigation }) => {
         <Text style={styles.options}>Already Signed up? Log in instead</Text>
       </TouchableHighlight>
       <StatusBar style='auto' />
-    </SafeAreaView>
+    </View>
   )
 }
 

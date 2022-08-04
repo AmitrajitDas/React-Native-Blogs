@@ -38,7 +38,8 @@ const LoginScreen = ({ navigation }) => {
       )
       console.log(data)
       await AsyncStorage.setItem("token", data.token)
-      await navigation.navigate("Blogs")
+      await AsyncStorage.setItem("userId", JSON.stringify(data.id))
+      await navigation.push("Blogs")
     } catch (error) {
       console.log(error.response.data.error)
       setError(error.response.data.error)
@@ -49,7 +50,7 @@ const LoginScreen = ({ navigation }) => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Image
         source={LoginPNG}
         style={{ marginBottom: 50, height: 200, width: 200 }}
@@ -85,7 +86,7 @@ const LoginScreen = ({ navigation }) => {
       </TouchableHighlight>
 
       <StatusBar style='auto' />
-    </SafeAreaView>
+    </View>
   )
 }
 
