@@ -50,7 +50,7 @@ const BlogScreen = ({ navigation, route }) => {
       setLoading(false)
     }
     getBlog()
-  }, [blogId])
+  }, [navigation])
 
   const editHandler = () => {
     navigation.push("EditBlog", {

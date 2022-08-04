@@ -11,6 +11,7 @@ import BlogScreen from "./pages/BlogScreen"
 import CreateBlogScreen from "./pages/CreateBlogScreen"
 import MyBlogScreen from "./pages/MyBlogScreen"
 import EditBlogScreen from "./pages/EditBlogScreen"
+import EditUserScreen from "./pages/EditUserScreen"
 
 const Stack = createNativeStackNavigator()
 
@@ -91,6 +92,11 @@ export default function App() {
             name='EditBlog'
             component={EditBlogScreen}
             options={{ title: "Edit Blog" }}
+          />
+          <Stack.Screen
+            name='EditUser'
+            component={EditUserScreen}
+            options={{ title: "Edit User" }}
           />
         </Stack.Navigator>
       </NavigationContainer>
