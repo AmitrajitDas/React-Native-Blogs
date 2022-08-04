@@ -14,6 +14,7 @@ import Card from "../../components/Card"
 import { styles } from "./styles"
 import BlogIMG from "../../assets/blogimg.jpg"
 import api from "../../api"
+import Comment from "../../components/Comment"
 
 const BlogScreen = ({ navigation, route }) => {
   const [loading, setLoading] = useState(false)
@@ -50,7 +51,7 @@ const BlogScreen = ({ navigation, route }) => {
       setLoading(false)
     }
     getBlog()
-  }, [navigation])
+  }, [])
 
   const editHandler = () => {
     navigation.push("EditBlog", {
@@ -127,6 +128,8 @@ const BlogScreen = ({ navigation, route }) => {
         </Text>
         <Text>{new Date(blog.created_at).toDateString()}</Text>
       </View>
+      <Text style={styles.line}> ──────────────────────────────────</Text>
+      <Comment blogId={blogId} navigation={navigation} />
 
       {/* <Text style={{ marginTop: 20 }}>Date</Text> */}
       <StatusBar style='auto' />

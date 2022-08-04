@@ -3,6 +3,7 @@ import { StatusBar } from "expo-status-bar"
 import { StyleSheet, Text, View, Button, AsyncStorage } from "react-native"
 import { NavigationContainer } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 
 import LoginScreen from "./pages/LoginScreen"
 import SignupScreen from "./pages/SignupScreen"
@@ -14,6 +15,7 @@ import EditBlogScreen from "./pages/EditBlogScreen"
 import EditUserScreen from "./pages/EditUserScreen"
 
 const Stack = createNativeStackNavigator()
+const Tab = createBottomTabNavigator()
 
 export default function App() {
   const [auth, setAuth] = useState(false)
