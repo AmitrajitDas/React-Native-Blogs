@@ -38,6 +38,7 @@ const LoginScreen = ({ navigation }) => {
       )
       console.log(data)
       await AsyncStorage.setItem("token", data.token)
+      await AsyncStorage.setItem("userId", JSON.stringify(data.id))
       await navigation.push("Blogs")
     } catch (error) {
       console.log(error.response.data.error)

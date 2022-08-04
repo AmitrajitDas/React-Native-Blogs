@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { StatusBar } from "expo-status-bar"
 import {
   Text,
@@ -26,7 +26,15 @@ const BlogsScreen = ({ navigation }) => {
       name: "bt_create_blog",
       position: 1,
     },
+    {
+      text: "My Blog",
+      icon: require("../../assets/blog.png"),
+      name: "bt_my_blog",
+      position: 2,
+    },
   ]
+
+  // const data = useMemo(() => blogs, [blogs]) // <- dependencies
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -56,7 +64,12 @@ const BlogsScreen = ({ navigation }) => {
       <FloatingAction
         actions={actions}
         onPressItem={(name) => {
-          navigation.navigate("CreateBlog")
+          if (name === "bt_create_blog") {
+            navigation.navigate("CreateBlog")
+          }
+          if (name === "bt_my_blog") {
+            navigation.navigate("MyBlog")
+          }
         }}
         color='#0096FF'
       />

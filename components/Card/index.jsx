@@ -1,6 +1,12 @@
 import { Children, useState, useEffect } from "react"
 import { StatusBar } from "expo-status-bar"
-import { Text, View, Image, TouchableHighlight } from "react-native"
+import {
+  Text,
+  View,
+  Image,
+  TouchableHighlight,
+  AsyncStorage,
+} from "react-native"
 import { styles } from "./styles"
 import BlogIMG from "../../assets/blogimg.jpg"
 import api from "../../api"
