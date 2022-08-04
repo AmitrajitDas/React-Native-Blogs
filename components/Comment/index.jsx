@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useMemo } from "react"
 import { StatusBar } from "expo-status-bar"
 import {
   Text,
@@ -19,8 +19,10 @@ const Comment = ({ blogId, navigation }) => {
   const [error, setError] = useState("")
   const [comments, setComments] = useState([])
   const [comment, setComment] = useState("")
+  const [click, setClick] = useState(false)
 
-  const { current: commentsArray } = useRef(comments)
+  // const { current: commentsArray } = useRef(comments)
+  const commentsArray = useMemo(() => comments, [])
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -30,14 +32,14 @@ const Comment = ({ blogId, navigation }) => {
         console.log(data)
         setComments(data)
       } catch (error) {
-        console.log(error.response.data.error)
-        setError(error.response.data.error)
-        alert(error.response.data.error)
+        console.log(error.response.data.errors)
+        setError(error.response.data.errors)
+        // alert(error.response.data.errors)
       }
       setLoading(false)
     }
     fetchComments()
-  }, [blogId])
+  }, [blogId, comments])
 
   const commentHandler = async () => {
     setLoading(true)
@@ -49,12 +51,13 @@ const Comment = ({ blogId, navigation }) => {
         })
       )
       console.log(data)
-      navigation.push("Blogs")
+      setComment("")
+      // navigation.push("Blogs")
       alert("Commented")
     } catch (error) {
       console.log(error.response.data.errors)
       setError(error.response.data.errors)
-      alert(error.response.data.errors)
+      // alert(error.response.data.errors)
     }
   }
 
