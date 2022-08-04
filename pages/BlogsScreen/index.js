@@ -8,6 +8,7 @@ import {
   Button,
   TouchableHighlight,
   Image,
+  AsyncStorage,
 } from "react-native"
 import Card from "../../components/Card"
 import { styles } from "./styles"
@@ -38,7 +39,23 @@ const BlogsScreen = ({ navigation }) => {
       name: "bt_edit_user",
       position: 3,
     },
+    {
+      text: "Log Out",
+      icon: require("../../assets/blog.png"),
+      name: "bt_logout_user",
+      position: 4,
+    },
   ]
+
+  const removeToken = async () => {
+    try {
+      await AsyncStorage.removeItem("token")
+      await AsyncStorage.removeItem("userId")
+      navigator.navigate("Login")
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   // const data = useMemo(() => blogs, [blogs]) // <- dependencies
 
@@ -57,10 +74,20 @@ const BlogsScreen = ({ navigation }) => {
       setLoading(false)
     }
     fetchBlogs()
-  }, [navigation])
+  }, [])
 
   return (
     <View>
+      {/* <View style={{ marginTop: 10 }}>
+        <TouchableHighlight
+          onPress={removeToken}
+          underlayColor='#fff'
+          style={styles.btn}
+        >
+          <Text style={styles.btnTxt}>Log Out</Text>
+        </TouchableHighlight>
+      </View> */}
+
       <ScrollView style={styles.container}>
         {blogs &&
           blogs.map((blog) => (
@@ -69,7 +96,7 @@ const BlogsScreen = ({ navigation }) => {
       </ScrollView>
       <FloatingAction
         actions={actions}
-        onPressItem={(name) => {
+        onPressItem={async (name) => {
           if (name === "bt_create_blog") {
             navigation.navigate("CreateBlog")
           }
@@ -78,6 +105,11 @@ const BlogsScreen = ({ navigation }) => {
           }
           if (name === "bt_edit_user") {
             navigation.navigate("EditUser")
+          }
+          if (name === "bt_logout_user") {
+            await AsyncStorage.removeItem("token")
+            await AsyncStorage.removeItem("userId")
+            navigation.navigate("Login")
           }
         }}
         color='#0096FF'

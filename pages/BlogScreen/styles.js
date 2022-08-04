@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
 
   body: {
     fontSize: 20,
-    marginTop: 20,
+    marginVertical: 30,
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -28,5 +28,10 @@ export const styles = StyleSheet.create({
   btnTxt: {
     color: "#0096FF",
     fontSize: 15,
+  },
+
+  line: {
+    marginTop: 20,
+    color: "#0096FF",
   },
 })

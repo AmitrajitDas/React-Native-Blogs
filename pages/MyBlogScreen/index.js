@@ -36,7 +36,7 @@ const MyBlogScreen = ({ navigation }) => {
       setLoading(false)
     }
     fetchBlogs()
-  }, [navigation])
+  }, [])
 
   return (
     <View>
@@ -46,7 +46,6 @@ const MyBlogScreen = ({ navigation }) => {
             <Card key={blog.id} blog={blog} navigation={navigation} />
           ))}
       </ScrollView>
-      <Text>MyBlogScreen</Text>
     </View>
   )
 }

@@ -51,7 +51,7 @@ const EditBlogScreen = ({ navigation, route }) => {
         setError(error.response.data.errors)
       })
     setLoading(false)
-  }, [navigation])
+  }, [])
 
   const updateBlogHandler = async () => {
     setLoading(true)

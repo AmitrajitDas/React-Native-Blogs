@@ -48,6 +48,8 @@ const CreateBlogScreen = ({ navigation }) => {
       )
       console.log(data)
       alert("Blog Posted!")
+      setTitle("")
+      setBody("")
       navigation.push("Blogs")
     } catch (error) {
       console.log(error.response.data.error)

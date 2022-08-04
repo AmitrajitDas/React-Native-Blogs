@@ -75,6 +75,7 @@ const SignupScreen = ({ navigation }) => {
         value={password}
         onChangeText={setPassword}
         style={styles.input}
+        secureTextEntry={true}
         placeholder='Enter password'
       />
       <TouchableHighlight

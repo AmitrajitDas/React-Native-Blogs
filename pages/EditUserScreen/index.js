@@ -106,6 +106,7 @@ const EditUserScreen = ({ navigation }) => {
         value={password}
         onChangeText={setPassword}
         style={styles.input}
+        secureTextEntry={true}
         placeholder='Update password'
       />
       <TouchableHighlight
